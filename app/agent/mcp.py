@@ -27,7 +27,7 @@ class MCPAgent(ToolCallAgent):
     mcp_clients: MCPClients = Field(default_factory=MCPClients)
     available_tools: MCPClients = None  # 将在 initialize() 中设置
 
-    max_steps: int = 20
+    max_steps: int = 30
     connection_type: str = "stdio"  # "stdio" 或 "sse"
 
     # 跟踪工具模式以检测变更

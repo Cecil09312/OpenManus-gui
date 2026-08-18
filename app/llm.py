@@ -343,6 +343,39 @@ class LLM:
             else:
                 raise TypeError(f"不支持的消息类型：{type(message)}")
 
+        # 净化 tool 消息配对：确保每条 tool 消息都有配对的 assistant(tool_calls)
+        # 孤儿 tool 消息会导致 OpenAI 兼容接口（如 DashScope）报 400 错误：
+        # "messages with role 'tool' must be a response to a preceding message
+        # with 'tool_calls'"。将孤儿 tool 消息降级为 user 消息以保留上下文。
+        sanitized_messages = []
+        pending_tool_call_ids = set()
+        for message in formatted_messages:
+            role = message.get("role")
+            if role == "assistant" and message.get("tool_calls"):
+                # 记录本轮 assistant 声明的所有 tool_call id
+                pending_tool_call_ids = {
+                    tc.get("id") for tc in message["tool_calls"] if tc.get("id")
+                }
+            elif role == "tool":
+                if message.get("tool_call_id") in pending_tool_call_ids:
+                    # 正常配对，消费该 id
+                    pending_tool_call_ids.discard(message.get("tool_call_id"))
+                else:
+                    # 孤儿 tool 消息：降级为 user 消息保留内容
+                    logger.warning(
+                        "发现未配对的 tool 消息，已降级为 user 消息："
+                        f"{str(message.get('content', ''))[:100]}"
+                    )
+                    downgraded = {
+                        "role": "user",
+                        "content": f"[工具 {message.get('name', 'unknown')} 的历史结果] "
+                        + str(message.get("content", "")),
+                    }
+                    sanitized_messages.append(downgraded)
+                    continue
+            sanitized_messages.append(message)
+        formatted_messages = sanitized_messages
+
         # 验证所有消息包含必需字段
         for msg in formatted_messages:
             if msg["role"] not in ROLE_VALUES:

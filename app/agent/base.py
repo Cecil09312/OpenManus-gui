@@ -31,7 +31,7 @@ class BaseAgent(BaseModel, ABC):
     state: AgentState = Field(default=AgentState.IDLE, description="当前智能体状态")
 
     # 执行控制
-    max_steps: int = Field(default=10, description="终止前的最大步骤数")
+    max_steps: int = Field(default=30, description="终止前的最大步骤数")
     current_step: int = Field(default=0, description="当前执行步骤")
 
     duplicate_threshold: int = 2

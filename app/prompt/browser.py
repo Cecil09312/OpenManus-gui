@@ -86,6 +86,9 @@ NEXT_STEP_PROMPT = """
 - 输入：browser_use with action="input_text", index=N, text="..."
 - 提取：browser_use with action="extract_content", goal="..."
 - 滚动：browser_use with action="scroll_down" or "scroll_up"
+- 视觉交互（降级方案）：browser_use with action="gui_action", instruction="..."
+  当基于索引的元素操作反复失败（元素定位不到、被遮挡或页面结构复杂）时，
+  改用 gui_action，由视觉模型根据页面截图直接执行点击/输入等操作。
 
 同时考虑可见内容和当前视口之外可能存在的内容。
 要有条理——记住你的进度和到目前为止了解的信息。

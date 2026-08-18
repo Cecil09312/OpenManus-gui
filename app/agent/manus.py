@@ -28,7 +28,7 @@ class Manus(ToolCallAgent):
     next_step_prompt: str = NEXT_STEP_PROMPT
 
     max_observe: int = 10000
-    max_steps: int = 20
+    max_steps: int = 30
 
     # 用于远程工具访问的 MCP 客户端
     mcp_clients: MCPClients = Field(default_factory=MCPClients)

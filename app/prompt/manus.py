@@ -23,5 +23,32 @@ SYSTEM_PROMPT = (
 NEXT_STEP_PROMPT = """
 根据用户需求，主动选择最合适的工具或工具组合。对于复杂任务，你可以将问题分解，并逐步使用不同的工具来解决。每次使用工具后，清晰地说明执行结果并建议下一步操作。
 
-如果你想在任何时候停止交互，请使用 `terminate` 工具/函数调用。
+## 浏览器操作指南
+
+使用 browser_use 工具时，优先使用简化的 **click** 和 **type** 操作：
+
+### 核心操作：
+- **click**: 点击元素
+  示例: action="click", element_description="搜索按钮"
+  示例: action="click", element_description="出发地"
+  示例: action="click", element_description="30" (日期)
+
+- **type**: 输入文本
+  示例: action="type", element_description="出发城市", text="上海"
+  示例: action="type", element_description="搜索框", text="机票"
+
+### 辅助操作：
+- go_to_url: 导航到网址
+- send_keys: 发送按键（如 Enter、Escape）
+- scroll_down/scroll_up: 滚动页面
+- wait: 等待页面加载
+- extract_content: 提取页面内容
+
+### 使用技巧：
+1. element_description 使用简短明确的描述，如"搜索"、"确认"、"30"
+2. 对于弹出框中的输入，先 click 激活区域，再 type 输入
+3. 输入后用 send_keys="Enter" 确认选择
+4. 每次操作后观察结果，根据实际情况调整
+
+如果你想停止交互，请使用 `terminate` 工具/函数调用。
 """

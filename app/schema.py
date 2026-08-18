@@ -160,19 +160,31 @@ class Memory(BaseModel):
     messages: List[Message] = Field(default_factory=list)
     max_messages: int = Field(default=100)
 
+    def _trim_to_limit(self) -> None:
+        """将消息截断到上限，并保证 tool 消息配对完整。
+
+        直接从头截断可能切掉 assistant(tool_calls) 而留下孤儿 tool 消息，
+        会导致 OpenAI 兼容接口（如 DashScope）报 400 错误：
+        "messages with role 'tool' must be a response to a preceding message
+        with 'tool_calls'"。因此截断后需移除开头的孤儿 tool 消息。
+        """
+        if len(self.messages) > self.max_messages:
+            self.messages = self.messages[-self.max_messages :]
+            # 移除截断后开头的孤儿 tool 消息（其配对的 assistant 已被切掉）
+            while self.messages and self.messages[0].role == Role.TOOL:
+                self.messages.pop(0)
+
     def add_message(self, message: Message) -> None:
         """向记忆中添加消息"""
         self.messages.append(message)
         # 可选：实现消息限制
-        if len(self.messages) > self.max_messages:
-            self.messages = self.messages[-self.max_messages :]
+        self._trim_to_limit()
 
     def add_messages(self, messages: List[Message]) -> None:
         """向记忆中添加多条消息"""
         self.messages.extend(messages)
         # 可选：实现消息限制
-        if len(self.messages) > self.max_messages:
-            self.messages = self.messages[-self.max_messages :]
+        self._trim_to_limit()
 
     def clear(self) -> None:
         """清除所有消息"""
