@@ -13,7 +13,7 @@
 
 1. daytona config :
    ```bash
-   cd OpenManus
+   cd OpenManus-gui
    cp config/config.example-daytona.toml config/config.toml
    ```
 2. get daytona apikey :
@@ -33,7 +33,7 @@
 2. Run :
 
    ```bash
-   cd OpenManus
+   cd OpenManus-gui
    python sandbox_main.py
    ```
 

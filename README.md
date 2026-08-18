@@ -4,7 +4,7 @@
 
 English | [中文](README_zh.md) | [한국어](README_ko.md) | [日本語](README_ja.md)
 
-[![GitHub stars](https://img.shields.io/github/stars/FoundationAgents/OpenManus?style=social)](https://github.com/FoundationAgents/OpenManus/stargazers)
+[![GitHub stars](https://img.shields.io/github/stars/Cecil09312/OpenManus-gui?style=social)](https://github.com/Cecil09312/OpenManus-gui/stargazers)
 &ensp;
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT) &ensp;
 [![Discord Follow](https://dcbadge.vercel.app/api/server/DYn29wFk9z?style=flat)](https://discord.gg/DYn29wFk9z)
@@ -43,8 +43,8 @@ conda activate open_manus
 2. Clone the repository:
 
 ```bash
-git clone https://github.com/FoundationAgents/OpenManus.git
-cd OpenManus
+git clone https://github.com/Cecil09312/OpenManus-gui.git
+cd OpenManus-gui
 ```
 
 3. Install dependencies:
@@ -64,8 +64,8 @@ curl -LsSf https://astral.sh/uv/install.sh | sh
 2. Clone the repository:
 
 ```bash
-git clone https://github.com/FoundationAgents/OpenManus.git
-cd OpenManus
+git clone https://github.com/Cecil09312/OpenManus-gui.git
+cd OpenManus-gui
 ```
 
 3. Create a new virtual environment and activate it:
@@ -165,7 +165,7 @@ Join our networking group on Feishu and share your experience with other develop
 
 ## Star History
 
-[![Star History Chart](https://api.star-history.com/svg?repos=FoundationAgents/OpenManus&type=Date)](https://star-history.com/#FoundationAgents/OpenManus&Date)
+[![Star History Chart](https://api.star-history.com/svg?repos=Cecil09312/OpenManus-gui&type=Date)](https://star-history.com/#Cecil09312/OpenManus-gui&Date)
 
 ## Sponsors
 Thanks to [PPIO](https://ppinfra.com/user/register?invited_by=OCPKCN&utm_source=github_openmanus&utm_medium=github_readme&utm_campaign=link) for computing source support.

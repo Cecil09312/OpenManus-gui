@@ -13,7 +13,7 @@
 1. 运行A2A Server:
 
    ```bash
-   cd OpenManus
+   cd OpenManus-gui
    python -m protocol.a2a.app.main
    ```
 
