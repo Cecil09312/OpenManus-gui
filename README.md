@@ -148,6 +148,63 @@ use_data_analysis_agent = true     # Disabled by default, change to true to acti
 ```
 In addition, you need to install the relevant dependencies to ensure the agent runs properly: [Detailed Installation Guide](app/tool/chart_visualization/README.md##Installation)
 
+## Workflow
+
+The following flowchart illustrates the core execution workflow of the OpenManus agent:
+
+```mermaid
+flowchart TD
+    Start([用户输入提示词]) --> Create[创建 Manus 智能体]
+    Create --> InitMCP[初始化 MCP 服务器连接]
+    InitMCP --> State1[智能体状态: IDLE → RUNNING]
+    State1 --> Check1{current_step < max_steps\n且状态 ≠ FINISHED?}
+
+    Check1 -->|否| Cleanup[清理资源:\n浏览器 / MCP / 沙箱]
+    Check1 -->|是| Step[执行单个步骤 step]
+
+    Step --> Think[think: LLM 思考决策\n构建工具调用请求]
+    Think --> Check2{LLM 是否选择工具?}
+
+    Check2 -->|否| Record[记录思考内容到记忆]
+    Check2 -->|是| Act[act: 执行工具调用]
+
+    Act --> ExecTools[执行工具]
+    ExecTools --> Tools[可用工具集合:\nPythonExecute / BrowserUseTool\nStrReplaceEditor / AskHuman\nMCP 工具 / Terminate]
+
+    Tools --> WriteMem[工具结果写入记忆]
+    Record --> WriteMem
+
+    WriteMem --> Check3{是否触发特殊工具\n如 Terminate?}
+    Check3 -->|是| Finish[状态 → FINISHED]
+    Check3 -->|否| Check4{是否卡住\nis_stuck?}
+
+    Check4 -->|是| Stuck[添加策略变更提示\n改变下一步策略]
+    Check4 -->|否| IncStep[current_step += 1]
+    Finish --> IncStep
+    Stuck --> IncStep
+
+    IncStep --> Check1
+    Cleanup --> End([返回执行结果])
+
+    classDef startEnd fill:#e1f5e1,stroke:#2e7d32,stroke-width:2px
+    classDef decision fill:#fff3e0,stroke:#ef6c00,stroke-width:2px
+    classDef process fill:#e3f2fd,stroke:#1565c0,stroke-width:2px
+    classDef special fill:#fce4ec,stroke:#c62828,stroke-width:2px
+
+    class Start,End startEnd
+    class Check1,Check2,Check3,Check4 decision
+    class Create,InitMCP,State1,Step,Think,Act,ExecTools,Tools,WriteMem,Record,IncStep process
+    class Finish,Stuck,Cleanup special
+```
+
+**Key components of the workflow:**
+
+- **ReAct Loop**: Each step follows the `think()` → `act()` pattern, where the LLM reasons about the current state and decides which tools to invoke, then executes them.
+- **Tool Execution**: The agent can call multiple built-in tools (Python execution, browser automation, file editing) and remote MCP tools in parallel.
+- **State Management**: The agent transitions between `IDLE`, `RUNNING`, `FINISHED`, and `ERROR` states, with a configurable `max_steps` limit (default: 30).
+- **Stuck Detection**: When repeated responses are detected, the agent injects a strategy-change prompt to break out of loops.
+- **Graceful Shutdown**: Upon completion or reaching the step limit, the agent cleans up browser sessions, MCP connections, and sandbox resources.
+
 ## How to contribute
 
 We welcome any friendly suggestions and helpful contributions! Just create issues or submit pull requests.
