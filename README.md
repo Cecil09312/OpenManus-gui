@@ -13,140 +13,142 @@ English | [中文](README_zh.md) | [한국어](README_ko.md) | [日本語](READM
 
 # 👋 OpenManus
 
-Manus is incredible, but OpenManus can achieve any idea without an *Invite Code* 🛫!
+Manus 非常出色，但 OpenManus 无需 *邀请码* 即可实现任何想法 🛫！
 
-Our team members [@Xinbin Liang](https://github.com/mannaandpoem) and [@Jinyu Xiang](https://github.com/XiangJinyu) (core authors), along with [@Zhaoyang Yu](https://github.com/MoshiQAQ), [@Jiayi Zhang](https://github.com/didiforgithub), and [@Sirui Hong](https://github.com/stellaHSR), we are from [@MetaGPT](https://github.com/geekan/MetaGPT). The prototype is launched within 3 hours and we are keeping building!
+我们的团队成员 [@Xinbin Liang](https://github.com/mannaandpoem) 和 [@Jinyu Xiang](https://github.com/XiangJinyu)（核心作者），以及 [@Zhaoyang Yu](https://github.com/MoshiQAQ)、[@Jiayi Zhang](https://github.com/didiforgithub) 和 [@Sirui Hong](https://github.com/stellaHSR)，我们来自 [@MetaGPT](https://github.com/geekan/MetaGPT)。原型在 3 小时内上线，我们仍在持续构建中！
 
-It's a simple implementation, so we welcome any suggestions, contributions, and feedback!
+这是一个简单的实现，因此我们欢迎任何建议、贡献和反馈！
 
-Enjoy your own agent with OpenManus!
+用 OpenManus 享受属于你自己的智能体吧！
 
-We're also excited to introduce [OpenManus-RL](https://github.com/OpenManus/OpenManus-RL), an open-source project dedicated to reinforcement learning (RL)- based (such as GRPO) tuning methods for LLM agents, developed collaboratively by researchers from UIUC and OpenManus.
+我们还很高兴地介绍 [OpenManus-RL](https://github.com/OpenManus/OpenManus-RL)，这是一个致力于基于强化学习（RL）（例如 GRPO）的 LLM 智能体微调方法的开源项目，由 UIUC 和 OpenManus 的研究人员共同开发。
 
-## Installation
+## 项目演示
 
-We provide two installation methods. Method 2 (using uv) is recommended for faster installation and better dependency management.
+## 安装
 
-### Method 1: Using conda
+我们提供两种安装方式。推荐使用方式 2（使用 uv），安装速度更快、依赖管理更优。
 
-1. Create a new conda environment:
+### 方式一：使用 conda
+
+1. 创建新的 conda 环境：
 
 ```bash
 conda create -n open_manus python=3.12
 conda activate open_manus
 ```
 
-2. Clone the repository:
+2. 克隆仓库：
 
 ```bash
 git clone https://github.com/Cecil09312/OpenManus-gui.git
 cd OpenManus-gui
 ```
 
-3. Install dependencies:
+3. 安装依赖：
 
 ```bash
 pip install -r requirements.txt
 ```
 
-### Method 2: Using uv (Recommended)
+### 方式二：使用 uv（推荐）
 
-1. Install uv (A fast Python package installer and resolver):
+1. 安装 uv（一个快速的 Python 包安装器和解析器）：
 
 ```bash
 curl -LsSf https://astral.sh/uv/install.sh | sh
 ```
 
-2. Clone the repository:
+2. 克隆仓库：
 
 ```bash
 git clone https://github.com/Cecil09312/OpenManus-gui.git
 cd OpenManus-gui
 ```
 
-3. Create a new virtual environment and activate it:
+3. 创建新的虚拟环境并激活：
 
 ```bash
 uv venv --python 3.12
-source .venv/bin/activate  # On Unix/macOS
-# Or on Windows:
+source .venv/bin/activate  # 在 Unix/macOS 上
+# 或在 Windows 上：
 # .venv\Scripts\activate
 ```
 
-4. Install dependencies:
+4. 安装依赖：
 
 ```bash
 uv pip install -r requirements.txt
 ```
 
-### Browser Automation Tool (Optional)
+### 浏览器自动化工具（可选）
 ```bash
 playwright install
 ```
 
-## Configuration
+## 配置
 
-OpenManus requires configuration for the LLM APIs it uses. Follow these steps to set up your configuration:
+OpenManus 需要为其使用的 LLM API 进行配置。请按照以下步骤完成配置：
 
-1. Create a `config.toml` file in the `config` directory (you can copy from the example):
+1. 在 `config` 目录中创建 `config.toml` 文件（可以从示例文件复制）：
 
 ```bash
 cp config/config.example.toml config/config.toml
 ```
 
-2. Edit `config/config.toml` to add your API keys and customize settings:
+2. 编辑 `config/config.toml`，添加你的 API Key 并自定义设置：
 
 ```toml
-# Global LLM configuration
+# 全局 LLM 配置
 [llm]
 model = "gpt-4o"
 base_url = "https://api.openai.com/v1"
-api_key = "sk-..."  # Replace with your actual API key
+api_key = "sk-..."  # 替换为你的实际 API Key
 max_tokens = 4096
 temperature = 0.0
 
-# Optional configuration for specific LLM models
+# 特定 LLM 模型的可选配置
 [llm.vision]
 model = "gpt-4o"
 base_url = "https://api.openai.com/v1"
-api_key = "sk-..."  # Replace with your actual API key
+api_key = "sk-..."  # 替换为你的实际 API Key
 ```
 
-## Quick Start
+## 快速开始
 
-One line for run OpenManus:
+一行命令运行 OpenManus：
 
 ```bash
 python main.py
 ```
 
-Then input your idea via terminal!
+然后通过终端输入你的想法！
 
-For MCP tool version, you can run:
+如需运行 MCP 工具版本，可以执行：
 ```bash
 python run_mcp.py
 ```
 
-For unstable multi-agent version, you also can run:
+如需运行不稳定的多智能体版本，也可以执行：
 
 ```bash
 python run_flow.py
 ```
 
-### Custom Adding Multiple Agents
+### 自定义添加多个智能体
 
-Currently, besides the general OpenManus Agent, we have also integrated the DataAnalysis Agent, which is suitable for data analysis and data visualization tasks. You can add this agent to `run_flow` in `config.toml`.
+目前，除了通用的 OpenManus 智能体外，我们还集成了 DataAnalysis 智能体，适用于数据分析和数据可视化任务。你可以在 `config.toml` 中将此智能体添加到 `run_flow`。
 
 ```toml
-# Optional configuration for run-flow
+# run-flow 的可选配置
 [runflow]
-use_data_analysis_agent = true     # Disabled by default, change to true to activate
+use_data_analysis_agent = true     # 默认禁用，改为 true 即可启用
 ```
-In addition, you need to install the relevant dependencies to ensure the agent runs properly: [Detailed Installation Guide](app/tool/chart_visualization/README.md##Installation)
+此外，你还需要安装相关依赖，以确保智能体正常运行：[详细安装指南](app/tool/chart_visualization/README.md##Installation)
 
-## Workflow
+## 工作流程
 
-The following flowchart illustrates the core execution workflow of the OpenManus agent:
+以下流程图展示了 OpenManus 智能体的核心执行流程：
 
 ```mermaid
 flowchart TD
@@ -193,49 +195,50 @@ flowchart TD
     class Finish,Stuck,Cleanup special
 ```
 
-**Key components of the workflow:**
+**工作流程的关键组成部分：**
 
-- **ReAct Loop**: Each step follows the `think()` → `act()` pattern, where the LLM reasons about the current state and decides which tools to invoke, then executes them.
-- **Tool Execution**: The agent can call multiple built-in tools (Python execution, browser automation, file editing) and remote MCP tools in parallel.
-- **State Management**: The agent transitions between `IDLE`, `RUNNING`, `FINISHED`, and `ERROR` states, with a configurable `max_steps` limit (default: 30).
-- **Stuck Detection**: When repeated responses are detected, the agent injects a strategy-change prompt to break out of loops.
-- **Graceful Shutdown**: Upon completion or reaching the step limit, the agent cleans up browser sessions, MCP connections, and sandbox resources.
+- **ReAct 循环**：每个步骤遵循 `think()` → `act()` 模式，由 LLM 对当前状态进行推理并决定调用哪些工具，然后执行它们。
+- **工具执行**：智能体可以并行调用多个内置工具（Python 执行、浏览器自动化、文件编辑）和远程 MCP 工具。
+- **状态管理**：智能体在 `IDLE`、`RUNNING`、`FINISHED` 和 `ERROR` 状态之间转换，并具有可配置的 `max_steps` 限制（默认：30）。
+- **卡住检测**：当检测到重复响应时，智能体会注入策略变更提示以跳出循环。
+- **优雅关闭**：在完成或达到步骤上限时，智能体会清理浏览器会话、MCP 连接和沙箱资源。
 
-## How to contribute
+## 如何贡献
 
-We welcome any friendly suggestions and helpful contributions! Just create issues or submit pull requests.
+我们欢迎任何友好的建议和有益的贡献！只需创建 issue 或提交 pull request 即可。
 
-Or contact @mannaandpoem via 📧email: mannaandpoem@gmail.com
+也可以通过 📧邮箱联系 @mannaandpoem：mannaandpoem@gmail.com
 
-**Note**: Before submitting a pull request, please use the pre-commit tool to check your changes. Run `pre-commit run --all-files` to execute the checks.
+**注意**：在提交 pull request 之前，请使用 pre-commit 工具检查你的更改。运行 `pre-commit run --all-files` 执行检查。
 
-## Community Group
-Join our networking group on Feishu and share your experience with other developers!
+## 社区交流群
+
+加入我们的飞书交流群，与其他开发者分享你的经验！
 
 <div align="center" style="display: flex; gap: 20px;">
     <img src="assets/community_group.jpg" alt="OpenManus 交流群" width="300" />
 </div>
 
-## Star History
+## Star 历史
 
 [![Star History Chart](https://api.star-history.com/svg?repos=Cecil09312/OpenManus-gui&type=Date)](https://star-history.com/#Cecil09312/OpenManus-gui&Date)
 
-## Sponsors
-Thanks to [PPIO](https://ppinfra.com/user/register?invited_by=OCPKCN&utm_source=github_openmanus&utm_medium=github_readme&utm_campaign=link) for computing source support.
-> PPIO: The most affordable and easily-integrated MaaS and GPU cloud solution.
+## 赞助商
+感谢 [PPIO](https://ppinfra.com/user/register?invited_by=OCPKCN&utm_source=github_openmanus&utm_medium=github_readme&utm_campaign=link) 提供算力支持。
+> PPIO：性价比最高、最易集成的 MaaS 和 GPU 云解决方案。
 
 
-## Acknowledgement
+## 致谢
 
-Thanks to [anthropic-computer-use](https://github.com/anthropics/anthropic-quickstarts/tree/main/computer-use-demo), [browser-use](https://github.com/browser-use/browser-use) and [crawl4ai](https://github.com/unclecode/crawl4ai) for providing basic support for this project!
+感谢 [anthropic-computer-use](https://github.com/anthropics/anthropic-quickstarts/tree/main/computer-use-demo)、[browser-use](https://github.com/browser-use/browser-use) 和 [crawl4ai](https://github.com/unclecode/crawl4ai) 为本项目提供基础支持！
 
-Additionally, we are grateful to [AAAJ](https://github.com/metauto-ai/agent-as-a-judge), [MetaGPT](https://github.com/geekan/MetaGPT), [OpenHands](https://github.com/All-Hands-AI/OpenHands) and [SWE-agent](https://github.com/SWE-agent/SWE-agent).
+此外，我们还要感谢 [AAAJ](https://github.com/metauto-ai/agent-as-a-judge)、[MetaGPT](https://github.com/geekan/MetaGPT)、[OpenHands](https://github.com/All-Hands-AI/OpenHands) 和 [SWE-agent](https://github.com/SWE-agent/SWE-agent)。
 
-We also thank stepfun(阶跃星辰) for supporting our Hugging Face demo space.
+我们同样感谢 stepfun（阶跃星辰）对我们 Hugging Face 演示空间的支持。
 
-OpenManus is built by contributors from MetaGPT. Huge thanks to this agent community!
+OpenManus 由来自 MetaGPT 的贡献者构建。非常感谢这个智能体社区！
 
-## Cite
+## 引用
 ```bibtex
 @misc{openmanus2025,
   author = {Xinbin Liang and Jinyu Xiang and Zhaoyang Yu and Jiayi Zhang and Sirui Hong and Sheng Fan and Xiao Tang and Bang Liu and Yuyu Luo and Chenglin Wu},
