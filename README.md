@@ -1,13 +1,4 @@
 
-[![GitHub stars](https://img.shields.io/github/stars/Cecil09312/OpenManus-gui?style=social)](https://github.com/Cecil09312/OpenManus-gui/stargazers)
-&ensp;
-[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT) &ensp;
-[![Discord Follow](https://dcbadge.vercel.app/api/server/DYn29wFk9z?style=flat)](https://discord.gg/DYn29wFk9z)
-[![Demo](https://img.shields.io/badge/Demo-Hugging%20Face-yellow)](https://huggingface.co/spaces/lyh-917/OpenManusDemo)
-[![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.15186407.svg)](https://doi.org/10.5281/zenodo.15186407)
-
-## 项目演示
-
 ## 安装
 
 我们提供两种安装方式。推荐使用方式 2（使用 uv），安装速度更快、依赖管理更优。
@@ -71,7 +62,7 @@ playwright install
 
 ## 配置
 
-OpenManus 需要为其使用的 LLM API 进行配置。请按照以下步骤完成配置：
+OpenManus-gui 需要为其使用的 LLM API 进行配置。请按照以下步骤完成配置：
 
 1. 在 `config` 目录中创建 `config.toml` 文件（可以从示例文件复制）：
 
@@ -185,50 +176,3 @@ flowchart TD
 - **状态管理**：智能体在 `IDLE`、`RUNNING`、`FINISHED` 和 `ERROR` 状态之间转换，并具有可配置的 `max_steps` 限制（默认：30）。
 - **卡住检测**：当检测到重复响应时，智能体会注入策略变更提示以跳出循环。
 - **优雅关闭**：在完成或达到步骤上限时，智能体会清理浏览器会话、MCP 连接和沙箱资源。
-
-## 如何贡献
-
-我们欢迎任何友好的建议和有益的贡献！只需创建 issue 或提交 pull request 即可。
-
-也可以通过 📧邮箱联系 @mannaandpoem：mannaandpoem@gmail.com
-
-**注意**：在提交 pull request 之前，请使用 pre-commit 工具检查你的更改。运行 `pre-commit run --all-files` 执行检查。
-
-## 社区交流群
-
-加入我们的飞书交流群，与其他开发者分享你的经验！
-
-<div align="center" style="display: flex; gap: 20px;">
-    <img src="assets/community_group.jpg" alt="OpenManus 交流群" width="300" />
-</div>
-
-## Star 历史
-
-[![Star History Chart](https://api.star-history.com/svg?repos=Cecil09312/OpenManus-gui&type=Date)](https://star-history.com/#Cecil09312/OpenManus-gui&Date)
-
-## 赞助商
-感谢 [PPIO](https://ppinfra.com/user/register?invited_by=OCPKCN&utm_source=github_openmanus&utm_medium=github_readme&utm_campaign=link) 提供算力支持。
-> PPIO：性价比最高、最易集成的 MaaS 和 GPU 云解决方案。
-
-
-## 致谢
-
-感谢 [anthropic-computer-use](https://github.com/anthropics/anthropic-quickstarts/tree/main/computer-use-demo)、[browser-use](https://github.com/browser-use/browser-use) 和 [crawl4ai](https://github.com/unclecode/crawl4ai) 为本项目提供基础支持！
-
-此外，我们还要感谢 [AAAJ](https://github.com/metauto-ai/agent-as-a-judge)、[MetaGPT](https://github.com/geekan/MetaGPT)、[OpenHands](https://github.com/All-Hands-AI/OpenHands) 和 [SWE-agent](https://github.com/SWE-agent/SWE-agent)。
-
-我们同样感谢 stepfun（阶跃星辰）对我们 Hugging Face 演示空间的支持。
-
-OpenManus 由来自 MetaGPT 的贡献者构建。非常感谢这个智能体社区！
-
-## 引用
-```bibtex
-@misc{openmanus2025,
-  author = {Xinbin Liang and Jinyu Xiang and Zhaoyang Yu and Jiayi Zhang and Sirui Hong and Sheng Fan and Xiao Tang and Bang Liu and Yuyu Luo and Chenglin Wu},
-  title = {OpenManus: An open-source framework for building general AI agents},
-  year = {2025},
-  publisher = {Zenodo},
-  doi = {10.5281/zenodo.15186407},
-  url = {https://doi.org/10.5281/zenodo.15186407},
-}
-```
