@@ -1,8 +1,3 @@
-<p align="center">
-  <img src="assets/logo.jpg" width="200"/>
-</p>
-
-English | [中文](README_zh.md) | [한국어](README_ko.md) | [日本語](README_ja.md)
 
 [![GitHub stars](https://img.shields.io/github/stars/Cecil09312/OpenManus-gui?style=social)](https://github.com/Cecil09312/OpenManus-gui/stargazers)
 &ensp;
@@ -10,18 +5,6 @@ English | [中文](README_zh.md) | [한국어](README_ko.md) | [日本語](READM
 [![Discord Follow](https://dcbadge.vercel.app/api/server/DYn29wFk9z?style=flat)](https://discord.gg/DYn29wFk9z)
 [![Demo](https://img.shields.io/badge/Demo-Hugging%20Face-yellow)](https://huggingface.co/spaces/lyh-917/OpenManusDemo)
 [![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.15186407.svg)](https://doi.org/10.5281/zenodo.15186407)
-
-# 👋 OpenManus
-
-Manus 非常出色，但 OpenManus 无需 *邀请码* 即可实现任何想法 🛫！
-
-我们的团队成员 [@Xinbin Liang](https://github.com/mannaandpoem) 和 [@Jinyu Xiang](https://github.com/XiangJinyu)（核心作者），以及 [@Zhaoyang Yu](https://github.com/MoshiQAQ)、[@Jiayi Zhang](https://github.com/didiforgithub) 和 [@Sirui Hong](https://github.com/stellaHSR)，我们来自 [@MetaGPT](https://github.com/geekan/MetaGPT)。原型在 3 小时内上线，我们仍在持续构建中！
-
-这是一个简单的实现，因此我们欢迎任何建议、贡献和反馈！
-
-用 OpenManus 享受属于你自己的智能体吧！
-
-我们还很高兴地介绍 [OpenManus-RL](https://github.com/OpenManus/OpenManus-RL)，这是一个致力于基于强化学习（RL）（例如 GRPO）的 LLM 智能体微调方法的开源项目，由 UIUC 和 OpenManus 的研究人员共同开发。
 
 ## 项目演示
 
@@ -116,7 +99,7 @@ api_key = "sk-..."  # 替换为你的实际 API Key
 
 ## 快速开始
 
-一行命令运行 OpenManus：
+一行命令运行 OpenManus-gui：
 
 ```bash
 python main.py
