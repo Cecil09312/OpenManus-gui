@@ -70,25 +70,86 @@ OpenManus-gui 需要为其使用的 LLM API 进行配置。请按照以下步骤
 cp config/config.example.toml config/config.toml
 ```
 
-2. 编辑 `config/config.toml`，添加你的 API Key 并自定义设置：
+2. 编辑 `config/config.toml`，添加你的 API Key 并自定义设置。完整的配置示例（含 LLM、浏览器、搜索、MCP、Daytona 等）：
 
 ```toml
 # 全局 LLM 配置
 [llm]
-model = "gpt-4o"
-base_url = "https://api.openai.com/v1"
-api_key = "sk-..."  # 替换为你的实际 API Key
-max_tokens = 4096
+api_type = "openai"                          # DashScope 使用 OpenAI 兼容 API
+model = "qwen-max"                           # DashScope 模型名称（支持 function calling）
+# 可选模型：qwen-turbo, qwen-plus, qwen-max（都支持 function calling）
+base_url = "your base url"
+# 如果未设置，将从环境变量 DASHSCOPE_API_KEY 读取
+api_key = "your api key"
+max_tokens = 8192
 temperature = 0.0
 
-# 特定 LLM 模型的可选配置
+# 特定 LLM 模型的可选配置（视觉模型，用于浏览器视觉降级）
 [llm.vision]
-model = "gpt-4o"
-base_url = "https://api.openai.com/v1"
-api_key = "sk-..."  # 替换为你的实际 API Key
+api_type = "openai"                          # DashScope 使用 OpenAI 兼容 API
+model = "qwen-vl-plus"                       # DashScope 视觉模型：qwen-vl-plus
+base_url = "your base url"
+api_key = "your api key"
+max_tokens = 8192
+temperature = 0.0
+
+# 浏览器配置
+[browser]
+headless = false                             # 是否无头模式运行（默认 false）
+disable_security = true                      # 禁用浏览器安全特性（默认 true）
+# 添加反检测参数，减少被网站封锁的可能性
+extra_chromium_args = [
+    "--disable-blink-features=AutomationControlled",
+    "--disable-dev-shm-usage",
+    "--no-sandbox",
+    "--disable-setuid-sandbox",
+    "--user-agent=Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36"
+]
+
+# 搜索引擎配置
+[search]
+engine = "baidu"                             # 主搜索引擎：Google / Baidu / DuckDuckGo / Bing
+fallback_engines = ["duckduckgo", "google", "bing"]  # 主引擎失败后的降级顺序
+retry_delay = 60                             # 引擎限流后重试间隔秒数
+max_retries = 3                              # 全部失败后最大重试次数
+lang = "zh"                                  # 搜索结果语言
+country = "cn"                               # 搜索结果国家
+
+# MCP (Model Context Protocol) 配置
+[mcp]
+server_reference = "app.mcp.server"         # 默认服务器模块引用
+
+# GUI 服务器配置（app.py 使用）
+[server]
+host = "localhost"
+port = 5172
+
+# Runflow 多智能体可选配置
+[runflow]
+use_data_analysis_agent = false              # 数据分析智能体，默认禁用
+
+# Daytona 沙箱配置
+[daytona]
+daytona_api_key = "your daytona api key"
+#daytona_server_url = "https://app.daytona.io/api"
+#daytona_target = "us"
 ```
 
 ## 快速开始
+
+OpenManus-gui 提供两种使用方式：图形化 Web 界面（推荐）和命令行方式。
+
+### 方式一：图形化 Web 界面（推荐）
+
+启动 Web 服务，浏览器会自动打开图形界面：
+
+```bash
+python app.py
+```
+
+然后在网页中输入你的想法，即可通过可视化界面查看智能体的思考、工具调用和执行结果（支持 SSE 实时事件流）。默认访问地址：`http://localhost:5172`（可在 `config.toml` 的 `[server]` 中修改）。
+
+### 方式二：命令行
 
 一行命令运行 OpenManus-gui：
 
@@ -118,11 +179,10 @@ python run_flow.py
 [runflow]
 use_data_analysis_agent = true     # 默认禁用，改为 true 即可启用
 ```
-此外，你还需要安装相关依赖，以确保智能体正常运行：[详细安装指南](app/tool/chart_visualization/README.md##Installation)
-
+此外，你还需要安装相关依赖，以确保智能体正常运行。
 ## 工作流程
 
-以下流程图展示了 OpenManus 智能体的核心执行流程：
+以下流程图展示了 OpenManus-gui 智能体的核心执行流程：
 
 ```mermaid
 flowchart TD
